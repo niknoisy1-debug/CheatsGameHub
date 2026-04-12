@@ -1,0 +1,1911 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>CheatsGameHub</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='45' fill='%232166b3'/%3E%3Ctext x='50' y='72' font-size='60' font-weight='bold' fill='white' text-anchor='middle' font-family='Arial'%3EC%3C/text%3E%3C/svg%3E">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', 'Roboto', system-ui, sans-serif;
+    }
+
+    body {
+      background: #0a0c10;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+      animation: fadeIn 0.5s ease;
+      transition: background 0.3s ease;
+    }
+
+    body.light-theme {
+      background: #e8ecf2;
+    }
+
+    body.light-theme .app-window {
+      background: #ffffff;
+      box-shadow: 0 25px 50px -8px rgba(0, 0, 0, 0.15), 0 0 0 1px rgba(0, 0, 0, 0.05);
+    }
+
+    body.light-theme .header h1,
+    body.light-theme .section-title,
+    body.light-theme .game-info h3,
+    body.light-theme .page-title,
+    body.light-theme .game-title-badge h2,
+    body.light-theme .card-title {
+      color: #1a1e24;
+    }
+
+    body.light-theme .header .subtitle,
+    body.light-theme .game-info .game-sub,
+    body.light-theme .game-meta,
+    body.light-theme .cheat-examples,
+    body.light-theme .card-desc {
+      color: #4a5568;
+    }
+
+    body.light-theme .game-card,
+    body.light-theme .cheat-item,
+    body.light-theme .server-card,
+    body.light-theme .about-block,
+    body.light-theme .sidebar,
+    body.light-theme .top-bar,
+    body.light-theme .header,
+    body.light-theme .content-panel {
+      background: #f5f7fa;
+      border-color: #d1d9e6;
+    }
+
+    body.light-theme .nav-item:hover {
+      background: #e1e8f0;
+    }
+
+    body.light-theme .nav-item.active {
+      background: #3b82f6;
+      color: white;
+    }
+
+    body.light-theme .search-box input,
+    body.light-theme .search-wrapper input {
+      background: #ffffff;
+      border-color: #cbd5e1;
+      color: #1a1e24;
+    }
+
+    body.light-theme .version-badge,
+    body.light-theme .fiction-badge,
+    body.light-theme .changelog-content,
+    body.light-theme .dev-panel {
+      background: #ffffff;
+      border-color: #cbd5e1;
+    }
+
+    body.light-theme .server-ip {
+      background: #ffffff;
+      border-color: #cbd5e1;
+      color: #1a1e24;
+    }
+
+    body.light-theme .tag-game {
+      background: #dcfce7;
+      color: #166534;
+    }
+
+    body.light-theme .tag-program {
+      background: #dbeafe;
+      color: #1e40af;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .app-window {
+      display: flex;
+      flex-direction: column;
+      width: 1400px;
+      max-width: 100%;
+      min-height: 900px;
+      max-height: 95vh;
+      background: #0d1117;
+      border-radius: 24px;
+      box-shadow: 0 25px 50px -8px rgba(0, 0, 0, 0.9), 0 0 0 1px rgba(75, 130, 200, 0.1);
+      overflow: hidden;
+      animation: slideUp 0.6s ease;
+      transition: background 0.3s ease, box-shadow 0.3s ease;
+      position: relative;
+    }
+
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Экран приостановки */
+    .suspend-overlay {
+      display: none;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(10, 12, 16, 0.98);
+      z-index: 99999;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      backdrop-filter: blur(10px);
+    }
+
+    .suspend-overlay.active {
+      display: flex;
+    }
+
+    .suspend-box {
+      background: #161b22;
+      border: 1px solid #30363d;
+      border-radius: 24px;
+      padding: 40px;
+      text-align: center;
+      max-width: 400px;
+    }
+
+    .suspend-box i {
+      font-size: 64px;
+      color: #f85149;
+      margin-bottom: 24px;
+    }
+
+    .suspend-box h2 {
+      color: white;
+      margin-bottom: 16px;
+    }
+
+    .suspend-box p {
+      color: #8b949e;
+      margin-bottom: 24px;
+    }
+
+    .suspend-box input {
+      width: 100%;
+      padding: 14px;
+      background: #0d1117;
+      border: 1px solid #30363d;
+      border-radius: 12px;
+      color: white;
+      margin-bottom: 16px;
+      text-align: center;
+    }
+
+    .suspend-box button {
+      width: 100%;
+      padding: 14px;
+      background: #238636;
+      border: none;
+      border-radius: 12px;
+      color: white;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    /* === ГЛАВНАЯ СТРАНИЦА === */
+    .games-view {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      overflow-y: auto;
+    }
+
+    .games-view::-webkit-scrollbar {
+      width: 8px;
+    }
+    .games-view::-webkit-scrollbar-track {
+      background: #161b22;
+    }
+    .games-view::-webkit-scrollbar-thumb {
+      background: #2d3a4a;
+      border-radius: 20px;
+    }
+
+    .header {
+      padding: 32px 40px 20px;
+      border-bottom: 1px solid #21262d;
+      transition: background 0.3s ease, border-color 0.3s ease;
+      background: #0d1117;
+    }
+
+    body.light-theme .header {
+      background: #ffffff;
+    }
+
+    .header-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+    }
+
+    .header-left {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .header h1 {
+      font-size: 48px;
+      font-weight: 800;
+      color: #ffffff;
+      letter-spacing: -1px;
+      margin-bottom: 8px;
+    }
+
+    .header h1 span {
+      color: #58a6ff;
+    }
+
+    .settings-btn {
+      background: #1a2332;
+      border: 1px solid #30363d;
+      border-radius: 12px;
+      padding: 12px 16px;
+      color: #8b949e;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-size: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .settings-btn:hover {
+      background: #212e42;
+      color: #58a6ff;
+      border-color: #58a6ff;
+    }
+
+    body.light-theme .settings-btn {
+      background: #e1e8f0;
+      border-color: #cbd5e1;
+      color: #4a5568;
+    }
+
+    body.light-theme .settings-btn:hover {
+      background: #cbd5e1;
+      color: #3b82f6;
+    }
+
+    .header-right {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .version-badge {
+      background: #1a2332;
+      padding: 8px 16px;
+      border-radius: 30px;
+      color: #58a6ff;
+      font-size: 14px;
+      font-weight: 600;
+      border: 1px solid #30363d;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .version-badge:hover {
+      background: #212e42;
+    }
+
+    .changelog-dropdown {
+      position: relative;
+      z-index: 100;
+    }
+
+    .changelog-content {
+      display: none;
+      position: absolute;
+      right: 0;
+      top: 45px;
+      background: #161b22;
+      border: 1px solid #30363d;
+      border-radius: 16px;
+      padding: 20px;
+      min-width: 320px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+      z-index: 1000;
+    }
+
+    .changelog-content.show {
+      display: block;
+      animation: fadeIn 0.2s ease;
+    }
+
+    .changelog-content h4 {
+      color: white;
+      margin-bottom: 12px;
+      font-size: 16px;
+    }
+
+    body.light-theme .changelog-content h4 {
+      color: #1a1e24;
+    }
+
+    .changelog-content ul {
+      list-style: none;
+      color: #8b949e;
+    }
+
+    .changelog-content li {
+      padding: 6px 0;
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .changelog-content li i {
+      color: #238636;
+      font-size: 12px;
+    }
+
+    /* Модальное окно настроек */
+    .settings-modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.7);
+      z-index: 10000;
+      justify-content: center;
+      align-items: center;
+      backdrop-filter: blur(5px);
+    }
+
+    .settings-modal.show {
+      display: flex;
+      animation: fadeIn 0.2s ease;
+    }
+
+    .settings-panel {
+      background: #161b22;
+      border: 1px solid #30363d;
+      border-radius: 24px;
+      padding: 32px;
+      width: 480px;
+      max-width: 90%;
+      max-height: 80vh;
+      overflow-y: auto;
+      box-shadow: 0 25px 50px -8px rgba(0, 0, 0, 0.8);
+    }
+
+    body.light-theme .settings-panel {
+      background: #ffffff;
+      border-color: #d1d9e6;
+    }
+
+    .settings-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 28px;
+    }
+
+    .settings-header h3 {
+      color: white;
+      font-size: 24px;
+      font-weight: 700;
+    }
+
+    body.light-theme .settings-header h3 {
+      color: #1a1e24;
+    }
+
+    .close-settings {
+      background: none;
+      border: none;
+      color: #8b949e;
+      font-size: 24px;
+      cursor: pointer;
+      padding: 8px;
+      transition: color 0.2s;
+    }
+
+    .close-settings:hover {
+      color: #f85149;
+    }
+
+    .settings-section {
+      margin-bottom: 28px;
+    }
+
+    .settings-section h4 {
+      color: #c9d1d9;
+      font-size: 14px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 16px;
+    }
+
+    body.light-theme .settings-section h4 {
+      color: #4a5568;
+    }
+
+    .theme-options, .lang-options {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .theme-btn, .lang-btn {
+      flex: 1;
+      padding: 12px 20px;
+      background: #0d1117;
+      border: 1px solid #30363d;
+      border-radius: 12px;
+      color: #c9d1d9;
+      font-weight: 600;
+      font-size: 15px;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    body.light-theme .theme-btn,
+    body.light-theme .lang-btn {
+      background: #f5f7fa;
+      border-color: #d1d9e6;
+      color: #1a1e24;
+    }
+
+    .theme-btn.active, .lang-btn.active {
+      background: #1e3a5f;
+      border-color: #58a6ff;
+      color: white;
+    }
+
+    body.light-theme .theme-btn.active,
+    body.light-theme .lang-btn.active {
+      background: #3b82f6;
+      color: white;
+    }
+
+    .additional-option {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 0;
+      border-bottom: 1px solid #21262d;
+    }
+
+    body.light-theme .additional-option {
+      border-bottom-color: #d1d9e6;
+    }
+
+    .additional-option label {
+      color: #c9d1d9;
+      font-size: 15px;
+    }
+
+    body.light-theme .additional-option label {
+      color: #1a1e24;
+    }
+
+    .toggle-switch {
+      width: 50px;
+      height: 26px;
+      background: #30363d;
+      border-radius: 30px;
+      position: relative;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .toggle-switch.active {
+      background: #238636;
+    }
+
+    .toggle-switch::after {
+      content: '';
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background: white;
+      border-radius: 50%;
+      top: 3px;
+      left: 3px;
+      transition: left 0.2s;
+    }
+
+    .toggle-switch.active::after {
+      left: 27px;
+    }
+
+    /* Раздел разработчика */
+    .dev-section {
+      margin-top: 16px;
+    }
+
+    .dev-btn {
+      width: 100%;
+      padding: 14px;
+      background: #1a2332;
+      border: 1px solid #f85149;
+      border-radius: 12px;
+      color: #f85149;
+      font-weight: 600;
+      font-size: 15px;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .dev-btn:hover {
+      background: #f85149;
+      color: white;
+    }
+
+    .dev-panel {
+      display: none;
+      margin-top: 16px;
+      padding: 20px;
+      background: #0d1117;
+      border: 1px solid #30363d;
+      border-radius: 16px;
+    }
+
+    .dev-panel.show {
+      display: block;
+    }
+
+    .dev-panel input {
+      width: 100%;
+      padding: 12px;
+      background: #161b22;
+      border: 1px solid #30363d;
+      border-radius: 8px;
+      color: white;
+      margin-bottom: 16px;
+      text-align: center;
+    }
+
+    .dev-actions {
+      display: flex;
+      gap: 10px;
+    }
+
+    .dev-action-btn {
+      flex: 1;
+      padding: 12px;
+      border: none;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+
+    .dev-close {
+      background: #da3633;
+      color: white;
+    }
+
+    .dev-suspend {
+      background: #d29922;
+      color: white;
+    }
+
+    .dev-reload {
+      background: #238636;
+      color: white;
+    }
+
+    .header .subtitle {
+      color: #8b949e;
+      font-size: 16px;
+      margin-bottom: 28px;
+    }
+
+    .search-section {
+      max-width: 600px;
+    }
+
+    .search-label {
+      color: #c9d1d9;
+      font-size: 14px;
+      font-weight: 500;
+      margin-bottom: 8px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .search-box {
+      position: relative;
+    }
+
+    .search-box i {
+      position: absolute;
+      left: 18px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #6e7681;
+      font-size: 18px;
+    }
+
+    .search-box input {
+      width: 100%;
+      padding: 16px 20px 16px 54px;
+      background: #161b22;
+      border: 1px solid #30363d;
+      border-radius: 12px;
+      color: #ffffff;
+      font-size: 16px;
+      outline: none;
+      transition: border 0.2s;
+    }
+
+    .search-box input:focus {
+      border-color: #58a6ff;
+      background: #1a2029;
+    }
+
+    .search-hint {
+      margin-top: 8px;
+      color: #6e7681;
+      font-size: 12px;
+      display: flex;
+      gap: 16px;
+    }
+
+    .search-hint span {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .search-hint i {
+      color: #58a6ff;
+    }
+
+    .fiction-badge {
+      display: inline-block;
+      margin-top: 16px;
+      padding: 6px 14px;
+      background: #1a2332;
+      border-radius: 30px;
+      color: #8b949e;
+      font-size: 13px;
+      border: 1px solid #30363d;
+    }
+
+    .fiction-badge i {
+      color: #58a6ff;
+      margin-right: 8px;
+    }
+
+    .games-grid-section {
+      padding: 32px 40px;
+      flex: 1;
+    }
+
+    .section-title {
+      font-size: 24px;
+      font-weight: 700;
+      color: #ffffff;
+      margin-bottom: 24px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .games-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+      gap: 24px;
+      padding-bottom: 20px;
+    }
+
+    .game-card {
+      background: #161b22;
+      border: 1px solid #30363d;
+      border-radius: 20px;
+      padding: 24px;
+      transition: transform 0.15s, border-color 0.2s, box-shadow 0.2s;
+      cursor: pointer;
+      animation: cardFade 0.5s ease;
+    }
+
+    @keyframes cardFade {
+      from { opacity: 0; transform: scale(0.95); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    .game-card:hover {
+      border-color: #58a6ff;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+    }
+
+    .game-card-header {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 16px;
+    }
+
+    .game-icon {
+      width: 56px;
+      height: 56px;
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      border: 1px solid #2d4a6e;
+    }
+
+    .game-icon img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .game-info {
+      flex: 1;
+    }
+
+    .game-info h3 {
+      font-size: 22px;
+      font-weight: 700;
+      color: #ffffff;
+      margin-bottom: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .game-tag {
+      font-size: 11px;
+      font-weight: 600;
+      padding: 4px 10px;
+      border-radius: 30px;
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+    }
+
+    .tag-game {
+      background: #1a3a2a;
+      color: #7ee787;
+    }
+
+    .tag-program {
+      background: #1e3a5f;
+      color: #90caf9;
+    }
+
+    .game-info .game-sub {
+      color: #8b949e;
+      font-size: 14px;
+    }
+
+    .cheat-examples {
+      color: #c9d1d9;
+      font-size: 14px;
+      margin: 16px 0;
+      padding: 12px 0;
+      border-top: 1px solid #21262d;
+      border-bottom: 1px solid #21262d;
+    }
+
+    .game-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: #6e7681;
+      font-size: 13px;
+      margin-bottom: 18px;
+    }
+
+    .platform-badge {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .view-cheats-btn {
+      width: 100%;
+      padding: 14px;
+      background: #238636;
+      border: none;
+      border-radius: 10px;
+      color: white;
+      font-weight: 700;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      border: 1px solid #2ea043;
+    }
+
+    .view-cheats-btn:hover {
+      background: #2ea043;
+    }
+
+    /* === ДЕТАЛЬНЫЙ ВИД === */
+    .detail-view {
+      display: none;
+      flex-direction: column;
+      height: 100%;
+    }
+
+    .detail-view.active {
+      display: flex;
+      animation: fadeIn 0.3s ease;
+    }
+
+    .top-bar {
+      display: flex;
+      align-items: center;
+      padding: 16px 24px;
+      background: #161b22;
+      border-bottom: 1px solid #30363d;
+      gap: 20px;
+      transition: background 0.3s ease, border-color 0.3s ease;
+      flex-shrink: 0;
+    }
+
+    .back-btn {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 18px;
+      background: #21262d;
+      border: 1px solid #30363d;
+      border-radius: 10px;
+      color: #c9d1d9;
+      font-weight: 600;
+      font-size: 15px;
+      cursor: pointer;
+    }
+
+    .back-btn:hover {
+      background: #2d3748;
+      border-color: #58a6ff;
+      color: white;
+    }
+
+    .game-title-badge {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .game-title-badge img {
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+    }
+
+    .game-title-badge h2 {
+      font-size: 24px;
+      font-weight: 700;
+      color: white;
+    }
+
+    .search-wrapper {
+      flex: 1;
+      max-width: 350px;
+      margin-left: auto;
+      position: relative;
+    }
+
+    .search-wrapper i {
+      position: absolute;
+      left: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #6e7681;
+    }
+
+    .search-wrapper input {
+      width: 100%;
+      padding: 10px 16px 10px 42px;
+      background: #0d1117;
+      border: 1px solid #30363d;
+      border-radius: 30px;
+      color: white;
+      outline: none;
+    }
+
+    .main-layout {
+      display: flex;
+      flex: 1;
+      overflow: hidden;
+    }
+
+    .sidebar {
+      width: 270px;
+      background: #161b22;
+      display: flex;
+      flex-direction: column;
+      border-right: 1px solid #30363d;
+      padding: 20px 0;
+      transition: background 0.3s ease, border-color 0.3s ease;
+    }
+
+    .nav-menu {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      padding: 0 14px;
+    }
+
+    .nav-item {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 14px 18px;
+      border-radius: 12px;
+      color: #8b949e;
+      font-weight: 500;
+      font-size: 16px;
+      transition: all 0.2s;
+      cursor: pointer;
+      border: 1px solid transparent;
+    }
+
+    .nav-item i {
+      width: 24px;
+      font-size: 1.2rem;
+      color: #6e7681;
+    }
+
+    .nav-item:hover {
+      background: #21262d;
+      color: #c9d1d9;
+    }
+
+    .nav-item.active {
+      background: #1e3a5f;
+      color: white;
+      border-color: #2d66b0;
+    }
+
+    .nav-item.active i {
+      color: #90caf9;
+    }
+
+    .content-panel {
+      flex: 1;
+      background: #0d1117;
+      padding: 28px 32px;
+      overflow-y: auto;
+      color: #e3e9f2;
+      transition: background 0.3s ease;
+    }
+
+    .content-panel::-webkit-scrollbar {
+      width: 8px;
+    }
+    .content-panel::-webkit-scrollbar-track {
+      background: #161b22;
+    }
+    .content-panel::-webkit-scrollbar-thumb {
+      background: #2d3a4a;
+      border-radius: 20px;
+    }
+
+    .page-title {
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 24px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      color: #f0f4fe;
+      border-bottom: 2px solid #21262d;
+      padding-bottom: 18px;
+    }
+
+    .page-title i {
+      color: #58a6ff;
+    }
+
+    .cheat-list {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .cheat-item {
+      background: #161b22;
+      border: 1px solid #30363d;
+      border-radius: 14px;
+      padding: 18px 22px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 15px;
+    }
+
+    .cheat-item-left {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .cheat-item-left i {
+      font-size: 24px;
+      color: #58a6ff;
+    }
+
+    .cheat-info h4 {
+      font-size: 18px;
+      font-weight: 700;
+      color: white;
+      margin-bottom: 4px;
+    }
+
+    .cheat-info .tg-link {
+      color: #8b949e;
+      font-size: 14px;
+    }
+
+    .cheat-info .tg-link a {
+      color: #58a6ff;
+      text-decoration: none;
+    }
+
+    .download-btn {
+      background: #238636;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      border: 1px solid #2ea043;
+    }
+
+    .download-btn:hover {
+      background: #2ea043;
+    }
+
+    .hosting-item {
+      background: #161b22;
+      border: 1px solid #30363d;
+      border-radius: 14px;
+      padding: 18px 22px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .hosting-info h4 {
+      font-size: 18px;
+      font-weight: 700;
+      color: white;
+      margin-bottom: 4px;
+    }
+
+    .hosting-info p {
+      color: #8b949e;
+      font-size: 14px;
+    }
+
+    .empty-state {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 80px 20px;
+      text-align: center;
+      color: #6e7681;
+    }
+
+    .empty-state i {
+      font-size: 64px;
+      margin-bottom: 20px;
+      opacity: 0.3;
+    }
+
+    .empty-state p {
+      font-size: 18px;
+    }
+
+    .about-block {
+      background: #161b22;
+      border-radius: 20px;
+      padding: 28px;
+      border: 1px solid #30363d;
+    }
+
+    .social-links {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      margin-top: 24px;
+    }
+
+    .social-link {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      background: #0d1117;
+      padding: 16px 24px;
+      border-radius: 50px;
+      text-decoration: none;
+      color: #c9d1d9;
+      font-size: 17px;
+      border: 1px solid #30363d;
+    }
+
+    .social-link i {
+      font-size: 28px;
+      width: 32px;
+    }
+
+    .social-link:hover {
+      background: #1a2332;
+      border-color: #58a6ff;
+      color: white;
+    }
+
+    .fa-tiktok { color: #ff0050; }
+    .fa-telegram { color: #2AABEE; }
+
+    .page {
+      display: none;
+    }
+
+    .page.active-page {
+      display: block;
+    }
+
+    .no-results {
+      text-align: center;
+      padding: 60px;
+      color: #6e7681;
+      font-size: 18px;
+    }
+
+    .server-card {
+      background: #161b22;
+      border: 1px solid #30363d;
+      border-radius: 16px;
+      padding: 20px;
+    }
+
+    .server-ip {
+      background: #0d1117;
+      padding: 8px 14px;
+      border-radius: 30px;
+      font-family: monospace;
+      margin-top: 16px;
+      border: 1px dashed #3a5f7a;
+      font-size: 14px;
+      color: #c9d1d9;
+    }
+
+    body.light-theme .server-ip {
+      background: #ffffff;
+      border-color: #cbd5e1;
+      color: #1a1e24;
+    }
+  </style>
+</head>
+<body>
+<div class="app-window">
+  <!-- ЭКРАН ПРИОСТАНОВКИ -->
+  <div id="suspendOverlay" class="suspend-overlay">
+    <div class="suspend-box">
+      <i class="fas fa-pause-circle"></i>
+      <h2>Сайт приостановлен</h2>
+      <p>Введите пароль разработчика для продолжения</p>
+      <input type="password" id="suspendPassword" placeholder="Пароль">
+      <button onclick="resumeSite()">Разблокировать</button>
+    </div>
+  </div>
+
+  <!-- ГЛАВНАЯ СТРАНИЦА -->
+  <div id="gamesView" class="games-view">
+    <div class="header">
+      <div class="header-top">
+        <div class="header-left">
+          <h1>CHEATS<span>GAME</span>HUB</h1>
+        </div>
+        <div class="header-right">
+          <div class="changelog-dropdown">
+            <div class="version-badge" onclick="toggleChangelog()">
+              <i class="fas fa-tag"></i>
+              <span>Версия 2.5.0</span>
+              <i class="fas fa-chevron-down"></i>
+            </div>
+            <div id="changelogContent" class="changelog-content">
+              <h4><i class="fas fa-clipboard-list"></i> Лог обновлений</h4>
+              <ul>
+                <li><i class="fas fa-plus-circle"></i> Добавлены ВСЕ читы Minecraft</li>
+                <li><i class="fas fa-plus-circle"></i> Добавлен раздел разработчика</li>
+                <li><i class="fas fa-plus-circle"></i> Реальные кнопки управления сайтом</li>
+                <li><i class="fas fa-calendar"></i> Дата обновления: 12 апреля 2026</li>
+              </ul>
+            </div>
+          </div>
+          <div class="settings-btn" onclick="openSettings()">
+            <i class="fas fa-cog"></i>
+          </div>
+        </div>
+      </div>
+      <div class="subtitle">GAMEHUB</div>
+      <div class="search-section">
+        <div class="search-label" id="searchLabel">ПОИСК ИГР И ПРОГРАММ</div>
+        <div class="search-box">
+          <i class="fas fa-search"></i>
+          <input type="text" id="searchInput" placeholder="По названию или тегу (игра, программа)..." onkeyup="filterGames()">
+        </div>
+        <div class="search-hint">
+          <span><i class="fas fa-tag"></i> Можно искать: "игра", "программа", "Minecraft"</span>
+        </div>
+      </div>
+      <div class="fiction-badge">
+        <i class="fas fa-shield-alt"></i>
+        FOR GAMEPLAY ENHANCEMENT (FICTIONAL)
+      </div>
+    </div>
+
+    <div class="games-grid-section">
+      <div class="section-title"><i class="fas fa-gamepad"></i> <span id="gamesTitle">ДОСТУПНЫЕ ИГРЫ И ПРОГРАММЫ</span></div>
+      <div class="games-grid" id="gamesGrid"></div>
+      <div id="noResults" class="no-results" style="display: none;">
+        <i class="fas fa-search" style="font-size: 48px; margin-bottom: 20px; opacity: 0.3;"></i>
+        <p id="noResultsText">Ничего не найдено</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- МОДАЛЬНОЕ ОКНО НАСТРОЕК -->
+  <div id="settingsModal" class="settings-modal" onclick="closeSettingsOnOverlay(event)">
+    <div class="settings-panel" onclick="event.stopPropagation()">
+      <div class="settings-header">
+        <h3 id="settingsTitle">Настройки</h3>
+        <button class="close-settings" onclick="closeSettings()"><i class="fas fa-times"></i></button>
+      </div>
+      
+      <div class="settings-section">
+        <h4 id="themeLabel">Тема</h4>
+        <div class="theme-options">
+          <button class="theme-btn active" data-theme="dark" onclick="setTheme('dark')">
+            <i class="fas fa-moon"></i> <span id="darkTheme">Тёмная</span>
+          </button>
+          <button class="theme-btn" data-theme="light" onclick="setTheme('light')">
+            <i class="fas fa-sun"></i> <span id="lightTheme">Светлая</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="settings-section">
+        <h4 id="languageLabel">Язык</h4>
+        <div class="lang-options">
+          <button class="lang-btn active" data-lang="ru" onclick="setLanguage('ru')">
+            🇷🇺 Русский
+          </button>
+          <button class="lang-btn" data-lang="en" onclick="setLanguage('en')">
+            🇬🇧 English
+          </button>
+          <button class="lang-btn" data-lang="ua" onclick="setLanguage('ua')">
+            🇺🇦 Українська
+          </button>
+        </div>
+      </div>
+
+      <div class="settings-section">
+        <h4 id="additionalLabel">Дополнительно</h4>
+        <div class="additional-option">
+          <label id="animationsLabel">Анимации</label>
+          <div class="toggle-switch active" id="animationsToggle" onclick="toggleAnimations()"></div>
+        </div>
+        <div class="additional-option">
+          <label id="soundsLabel">Звуки</label>
+          <div class="toggle-switch" id="soundsToggle" onclick="toggleSounds()"></div>
+        </div>
+        <div class="additional-option">
+          <label id="notificationsLabel">Уведомления</label>
+          <div class="toggle-switch active" id="notificationsToggle" onclick="toggleNotifications()"></div>
+        </div>
+      </div>
+
+      <!-- РАЗДЕЛ ДЛЯ РАЗРАБОТЧИКА -->
+      <div class="settings-section dev-section">
+        <button class="dev-btn" onclick="toggleDevPanel()">
+          <i class="fas fa-code"></i> Раздел для разработчика
+        </button>
+        <div id="devPanel" class="dev-panel">
+          <input type="password" id="devPassword" placeholder="Введите пароль">
+          <button class="dev-btn" style="margin-bottom: 16px;" onclick="checkDevPassword()">Войти</button>
+          <div id="devActions" style="display: none;">
+            <div class="dev-actions">
+              <button class="dev-action-btn dev-close" onclick="closeSite()">
+                <i class="fas fa-power-off"></i> Закрыть
+              </button>
+              <button class="dev-action-btn dev-suspend" onclick="suspendSite()">
+                <i class="fas fa-pause"></i> Приостановить
+              </button>
+              <button class="dev-action-btn dev-reload" onclick="reloadSite()">
+                <i class="fas fa-sync-alt"></i> Перезагрузить
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ДЕТАЛЬНЫЙ ВИД MINECRAFT -->
+  <div id="minecraftView" class="detail-view">
+    <div class="top-bar">
+      <div class="back-btn" onclick="closeGame()"><i class="fas fa-arrow-left"></i><span id="backText">НАЗАД К ИГРАМ</span></div>
+      <div class="game-title-badge">
+        <img src="https://upload.wikimedia.org/wikipedia/ru/f/f4/Minecraft_Cover_Art.png" alt="Minecraft">
+        <h2>Minecraft Cheats</h2>
+      </div>
+      <div class="search-wrapper"><i class="fas fa-search"></i><input type="text" placeholder="Поиск..."></div>
+    </div>
+    <div class="main-layout">
+      <div class="sidebar">
+        <div class="nav-menu">
+          <div class="nav-item active" data-page="cheats"><i class="fas fa-gamepad"></i><span>Читы</span></div>
+          <div class="nav-item" data-page="configs"><i class="fas fa-sliders-h"></i><span>Конфиги</span></div>
+          <div class="nav-item" data-page="texturepacks"><i class="fas fa-paint-brush"></i><span>Текстурпаки</span></div>
+          <div class="nav-item" data-page="visuals"><i class="fas fa-eye"></i><span>Визуалы</span></div>
+          <div class="nav-item" data-page="servers"><i class="fas fa-server"></i><span>Сервера</span></div>
+          <div class="nav-item" data-page="hosting"><i class="fas fa-cloud-upload-alt"></i><span>Хостинги</span></div>
+          <div class="nav-item" data-page="mods"><i class="fas fa-puzzle-piece"></i><span>Моды</span></div>
+          <div class="nav-item" data-page="about-us"><i class="fas fa-users"></i><span>О нас</span></div>
+        </div>
+        <div style="padding: 20px 18px; font-size: 12px; color: #6e7681; border-top: 1px solid #30363d;"><i class="fas fa-shield-alt"></i> Holodos Client v4.2</div>
+      </div>
+      <div class="content-panel">
+        <div id="mc-cheats" class="page active-page">
+          <div class="page-title"><i class="fas fa-crosshairs"></i> Читы</div>
+          <div class="cheat-list" id="minecraftCheatsList"></div>
+        </div>
+        <div id="mc-configs" class="page"><div class="page-title"><i class="fas fa-file-code"></i> Конфиги</div><div class="empty-state"><i class="fas fa-folder-open"></i><p>Здесь пока ничего нет</p></div></div>
+        <div id="mc-texturepacks" class="page"><div class="page-title"><i class="fas fa-images"></i> Текстурпаки</div><div class="empty-state"><i class="fas fa-image"></i><p>Здесь пока ничего нет</p></div></div>
+        <div id="mc-visuals" class="page">
+          <div class="page-title"><i class="fas fa-eye"></i> Визуалы</div>
+          <div class="cheat-list" id="minecraftVisualsList"></div>
+        </div>
+        <div id="mc-servers" class="page">
+          <div class="page-title"><i class="fas fa-network-wired"></i> Сервера</div>
+          <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px;">
+            <div class="server-card"><div style="font-size: 20px; font-weight: 700; margin-bottom: 8px;">🎮 FunTime</div><div style="color: #8b949e; margin-bottom: 16px;">Анархия, мини-игры</div><div class="server-ip">play.funtime.su</div></div>
+            <div class="server-card"><div style="font-size: 20px; font-weight: 700; margin-bottom: 8px;">🌍 HolyWorld</div><div style="color: #8b949e; margin-bottom: 16px;">Выживание, гриферство</div><div class="server-ip">mc.holyworld.me</div></div>
+            <div class="server-card"><div style="font-size: 20px; font-weight: 700; margin-bottom: 8px;">🍧 SlimeWorld</div><div style="color: #8b949e; margin-bottom: 16px;">Слизневые миры, PvP</div><div class="server-ip">mc.slimeworld.fun</div></div>
+            <div class="server-card"><div style="font-size: 20px; font-weight: 700; margin-bottom: 8px;">⚔️ ReallyWorld</div><div style="color: #8b949e; margin-bottom: 16px;">Анархия, читы разрешены</div><div class="server-ip">mc.reallyworld.ru</div><div class="server-ip" style="margin-top: 8px;">mc.reallyworld.me</div></div>
+          </div>
+        </div>
+        <div id="mc-hosting" class="page">
+          <div class="page-title"><i class="fas fa-cloud-upload-alt"></i> Хостинги</div>
+          <div style="display: flex; flex-direction: column; gap: 16px;">
+            <div class="hosting-item">
+              <div class="hosting-info">
+                <h4>🟢 Aternos</h4>
+                <p>Бесплатный хостинг для Minecraft серверов</p>
+              </div>
+              <a href="https://aternos.org/:ru/" target="_blank" class="download-btn"><i class="fas fa-external-link-alt"></i> Перейти</a>
+            </div>
+          </div>
+        </div>
+        <div id="mc-mods" class="page"><div class="page-title"><i class="fas fa-cubes"></i> Моды</div><div class="empty-state"><i class="fas fa-cube"></i><p>Здесь пока ничего нет</p></div></div>
+        <div id="mc-about" class="page">
+          <div class="page-title"><i class="fas fa-user-astronaut"></i> О нас</div>
+          <div class="about-block">
+            <p style="font-size: 22px; font-weight: 600; margin-bottom: 20px;">👥 Мы в соцсетях!</p>
+            <div class="social-links">
+              <a href="https://www.tiktok.com/@userqu9ezti20k" target="_blank" class="social-link"><i class="fab fa-tiktok"></i><span>TikTok: @userqu9ezti20k</span></a>
+              <a href="https://t.me/holodos222cheatminecraft" target="_blank" class="social-link"><i class="fab fa-telegram"></i><span>Telegram: @holodos222cheatminecraft</span></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ДЕТАЛЬНЫЙ ВИД ZOMPIERCER -->
+  <div id="zompiercerView" class="detail-view">
+    <div class="top-bar">
+      <div class="back-btn" onclick="closeGame()"><i class="fas fa-arrow-left"></i><span id="backTextZ">НАЗАД К ИГРАМ</span></div>
+      <div class="game-title-badge">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTij6zCkwMSyKog4KdsQXZ9qRvz_UwD0D8LaA&s" alt="Zompiercer">
+        <h2>Zompiercer Cheats</h2>
+      </div>
+      <div class="search-wrapper"><i class="fas fa-search"></i><input type="text" placeholder="Поиск..."></div>
+    </div>
+    <div class="main-layout">
+      <div class="sidebar">
+        <div class="nav-menu">
+          <div class="nav-item active" data-page="z-cheats"><i class="fas fa-gamepad"></i><span>Читы</span></div>
+        </div>
+        <div style="padding: 20px 18px; font-size: 12px; color: #6e7681; border-top: 1px solid #30363d;"><i class="fas fa-shield-alt"></i> Zompiercer v1.0</div>
+      </div>
+      <div class="content-panel">
+        <div id="z-cheats" class="page active-page">
+          <div class="page-title"><i class="fas fa-crosshairs"></i> Читы на Zompiercer</div>
+          <div class="empty-state"><i class="fas fa-folder-open"></i><p>Здесь пока ничего нет</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ДЕТАЛЬНЫЙ ВИД GRANNY LEGACY -->
+  <div id="grannyView" class="detail-view">
+    <div class="top-bar">
+      <div class="back-btn" onclick="closeGame()"><i class="fas fa-arrow-left"></i><span id="backTextG">НАЗАД К ИГРАМ</span></div>
+      <div class="game-title-badge">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRZ_IAhSWuekYr127WMOhu32Ohj7gp1angaCQ&s" alt="Granny Legacy">
+        <h2>Granny Legacy</h2>
+      </div>
+      <div class="search-wrapper"><i class="fas fa-search"></i><input type="text" placeholder="Поиск..."></div>
+    </div>
+    <div class="main-layout">
+      <div class="sidebar">
+        <div class="nav-menu">
+          <div class="nav-item active" data-page="gr-cheats"><i class="fas fa-gamepad"></i><span>Читы</span></div>
+        </div>
+        <div style="padding: 20px 18px; font-size: 12px; color: #6e7681; border-top: 1px solid #30363d;"><i class="fas fa-shield-alt"></i> Granny Legacy v1.0</div>
+      </div>
+      <div class="content-panel">
+        <div id="gr-cheats" class="page active-page">
+          <div class="page-title"><i class="fas fa-crosshairs"></i> Читы на Granny Legacy</div>
+          <div class="empty-state"><i class="fas fa-folder-open"></i><p>Здесь пока ничего нет</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ДЕТАЛЬНЫЙ ВИД ПАЙТОН -->
+  <div id="pythonView" class="detail-view">
+    <div class="top-bar">
+      <div class="back-btn" onclick="closeGame()"><i class="fas fa-arrow-left"></i><span id="backTextP">НАЗАД</span></div>
+      <div class="game-title-badge"><i class="fab fa-python" style="font-size: 32px; color: #58a6ff;"></i><h2>Пайтон</h2></div>
+      <div class="search-wrapper"><i class="fas fa-search"></i><input type="text" placeholder="Поиск..."></div>
+    </div>
+    <div class="main-layout">
+      <div class="sidebar">
+        <div class="nav-menu">
+          <div class="nav-item active" data-page="py-progs"><i class="fas fa-code"></i><span>Всякие программы</span></div>
+        </div>
+        <div style="padding: 20px 18px; font-size: 12px; color: #6e7681; border-top: 1px solid #30363d;"><i class="fab fa-python"></i> Python v3.x</div>
+      </div>
+      <div class="content-panel">
+        <div id="py-progs" class="page active-page">
+          <div class="page-title"><i class="fas fa-code"></i> Всякие программы</div>
+          <div class="empty-state"><i class="fas fa-folder-open"></i><p>Здесь пока ничего нет</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  // ПАРОЛЬ РАЗРАБОТЧИКА
+  const DEV_PASSWORD = 'holodosov222niknoisy1';
+  let devAuthorized = false;
+
+  // Переводы
+  const translations = {
+    ru: {
+      searchLabel: 'ПОИСК ИГР И ПРОГРАММ',
+      gamesTitle: 'ДОСТУПНЫЕ ИГРЫ И ПРОГРАММЫ',
+      noResults: 'Ничего не найдено',
+      settings: 'Настройки',
+      theme: 'Тема',
+      dark: 'Тёмная',
+      light: 'Светлая',
+      language: 'Язык',
+      additional: 'Дополнительно',
+      animations: 'Анимации',
+      sounds: 'Звуки',
+      notifications: 'Уведомления',
+      back: 'НАЗАД К ИГРАМ',
+      backProgram: 'НАЗАД',
+      viewCheats: 'VIEW CHEATS',
+      viewPrograms: 'ОТКРЫТЬ',
+      platform: 'Platform',
+      added: 'Добавлена: 11 апреля',
+      fiction: 'FOR GAMEPLAY ENHANCEMENT (FICTIONAL)',
+      version: 'Версия 2.5.0',
+      changelog: 'Лог обновлений',
+      tagGame: 'ИГРА',
+      tagProgram: 'ПРОГРАММА'
+    },
+    en: {
+      searchLabel: 'SEARCH GAMES & PROGRAMS',
+      gamesTitle: 'AVAILABLE GAMES & PROGRAMS',
+      noResults: 'Nothing found',
+      settings: 'Settings',
+      theme: 'Theme',
+      dark: 'Dark',
+      light: 'Light',
+      language: 'Language',
+      additional: 'Additional',
+      animations: 'Animations',
+      sounds: 'Sounds',
+      notifications: 'Notifications',
+      back: 'BACK TO GAMES',
+      backProgram: 'BACK',
+      viewCheats: 'VIEW CHEATS',
+      viewPrograms: 'VIEW PROGRAMS',
+      platform: 'Platform',
+      added: 'Added: April 11',
+      fiction: 'FOR GAMEPLAY ENHANCEMENT (FICTIONAL)',
+      version: 'Version 2.5.0',
+      changelog: 'Changelog',
+      tagGame: 'GAME',
+      tagProgram: 'PROGRAM'
+    },
+    ua: {
+      searchLabel: 'ПОШУК ІГОР ТА ПРОГРАМ',
+      gamesTitle: 'ДОСТУПНІ ІГРИ ТА ПРОГРАМИ',
+      noResults: 'Нічого не знайдено',
+      settings: 'Налаштування',
+      theme: 'Тема',
+      dark: 'Темна',
+      light: 'Світла',
+      language: 'Мова',
+      additional: 'Додатково',
+      animations: 'Анімації',
+      sounds: 'Звуки',
+      notifications: 'Сповіщення',
+      back: 'НАЗАД ДО ІГОР',
+      backProgram: 'НАЗАД',
+      viewCheats: 'VIEW CHEATS',
+      viewPrograms: 'ВІДКРИТИ',
+      platform: 'Платформа',
+      added: 'Додано: 11 квітня',
+      fiction: 'ДЛЯ ПОКРАЩЕННЯ ГРИ (ВИГАДКА)',
+      version: 'Версія 2.5.0',
+      changelog: 'Журнал змін',
+      tagGame: 'ГРА',
+      tagProgram: 'ПРОГРАМА'
+    }
+  };
+
+  let currentLang = 'ru';
+
+  const gamesData = [
+    { id: 'minecraft', name: 'MINECRAFT', cheats: ['KillAura', 'XRay', 'Fly', 'Speed'], icon: 'https://upload.wikimedia.org/wikipedia/ru/f/f4/Minecraft_Cover_Art.png', platforms: ['windows'], type: 'game', tags: ['игра', 'game'] },
+    { id: 'zompiercer', name: 'ZOMPIERCER', cheats: ['Max Ammo', 'God Mode', 'ESP'], icon: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTij6zCkwMSyKog4KdsQXZ9qRvz_UwD0D8LaA&s', platforms: ['windows'], type: 'game', tags: ['игра', 'game'] },
+    { id: 'granny', name: 'GRANNY LEGACY', cheats: ['God Mode', 'ESP', 'Unlock All'], icon: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRZ_IAhSWuekYr127WMOhu32Ohj7gp1angaCQ&s', platforms: ['windows'], type: 'game', tags: ['игра', 'game'] },
+    { id: 'python', name: 'ПАЙТОН', cheats: ['Различные программы на Python'], icon: null, platforms: ['windows', 'apple', 'linux'], type: 'program', tags: ['программа', 'program'] }
+  ];
+
+  // ВСЕ ЧИТЫ (22 ШТУКИ)
+  const minecraftCheats = [
+    { name: "nightDLC 1.1.2", tg: "https://t.me/holodos222cheatminecraft/36", dl: "https://drive.google.com/file/d/1kPv1-jAsRphCTx2YBIqDcCuF1HiV4Xko/view?usp=sharing" },
+    { name: "nightDLC 1.1.3", tg: "https://t.me/holodos222cheatminecraft/219", dl: "https://drive.google.com/file/d/1ZjyOkUjEMfvDk4XaEr2dsWW89-0TiDGh/view?usp=sharing" },
+    { name: "nightDLC build 2.1", tg: "https://t.me/holodos222cheatminecraft/231", dl: "https://drive.google.com/file/d/11UdBBw7DAzAS7lwNAuUU5YXRHvKqRlK-/view?usp=sharing" },
+    { name: "Haruka", tg: "https://t.me/holodos222cheatminecraft/23", dl: "https://drive.google.com/file/d/1aiAqOnUdBUy4SoKSkhBv41Fcn6ydqwYp/view?usp=sharing" },
+    { name: "VenusFree", tg: "https://t.me/holodos222cheatminecraft/50", dl: "https://drive.google.com/file/d/1YtItvre0d7mBDwgohEEL6pSu-peNnrSg/view?usp=sharing" },
+    { name: "meteor", tg: "https://t.me/holodos222cheatminecraft/61", dl: "https://drive.google.com/file/d/1Y3L3y0Sj8uNHhX_52al-BuwI_494QABL/view?usp=sharing" },
+    { name: "catlean", tg: "https://t.me/holodos222cheatminecraft/72", dl: "https://drive.google.com/file/d/1LuiPLH_qKTUMJQEjBOMCr5RhUkTm_q57/view?usp=sharing" },
+    { name: "Mercury client", tg: "https://t.me/holodos222cheatminecraft/165", dl: "https://drive.google.com/file/d/12ozHm1VD0APvERQ9d6P-Od_aZuWbHP_U/view?usp=sharing" },
+    { name: "Astra Ultra", tg: "https://t.me/holodos222cheatminecraft/174", dl: "https://drive.google.com/file/d/1Pfpkph5HO6DI_9zPMjqJ_O1sf5Mohash/view?usp=sharing" },
+    { name: "ThunderHack Pack", tg: "https://t.me/holodos222cheatminecraft/186", dl: "https://drive.google.com/file/d/1OWH5-wkp4OdDFPxiQdsEulLlguZxUpsv/view?usp=sharing" },
+    { name: "expensive 2.1", tg: "https://t.me/holodos222cheatminecraft/203", dl: "https://drive.google.com/file/d/1NOi6TebErCvitNkq0eyb66LgImKz7FLc/view?usp=sharing" },
+    { name: "Lusteria", tg: "https://t.me/holodos222cheatminecraft/271", dl: "https://drive.google.com/file/d/1XF8sbDRMY73zHEgej8hD_GSd42uWS80E/view?usp=sharing" },
+    { name: "Rockstar 2.0(beta)", tg: "https://t.me/holodos222cheatminecraft/288", dl: "https://drive.google.com/file/d/1bNJQiivJrxq_C9N4cXL_gdML2M_qJ-Wh/view?usp=sharing" },
+    { name: "DemureClient", tg: "https://t.me/holodos222cheatminecraft/296", dl: "https://drive.google.com/file/d/1fHskzyomuoCjbd7vl3Op9lAzHsK9Zg1d/view?usp=sharing" },
+    { name: "Vredux Client", tg: "https://t.me/holodos222cheatminecraft/331", dl: "#" },
+    { name: "Liquid Bonce", tg: "https://t.me/holodos222cheatminecraft/351", dl: "#" },
+    { name: "Elyxium client recode 0.7", tg: "https://t.me/holodos222cheatminecraft/397", dl: "#" },
+    { name: "Nursultan nextgen", tg: "https://t.me/holodos222cheatminecraft/418", dl: "#" },
+    { name: "Sperma client", tg: "https://t.me/holodos222cheatminecraft/422", dl: "https://drive.google.com/file/d/1-3bRLrfpmMvum3GEnmjjuEQNvOYU8ccF/view?usp=drivesdk" }
+  ];
+
+  const minecraftVisuals = [
+    { name: "Strange visuals", tg: "https://t.me/holodos222cheatminecraft/117", dl: "https://drive.google.com/file/d/1-rcu84mVe7LlOMjJZnglZ7I9AprTUJlG/view?usp=sharing" },
+    { name: "Rival visuals", tg: "https://t.me/holodos222cheatminecraft/130", dl: "https://drive.google.com/file/d/1U_xy99sNyagShm7-dzyIGVy5Y-fHeP7M/view?usp=sharing" },
+    { name: "Soup visuals", tg: "https://t.me/holodos222cheatminecraft/142", dl: "https://drive.google.com/file/d/1ATZ17kQbP4KL8AomTc7mMrMiMIi9Xxqe/view?usp=sharing" },
+    { name: "Simple visuals", tg: "https://t.me/holodos222cheatminecraft/158", dl: "https://drive.google.com/file/d/1YG5hNPN1o-3sxaeEXwFLbXBZGQAoDpob/view?usp=sharing" }
+  ];
+  
+  function renderGames(filterText = '') {
+    const grid = document.getElementById('gamesGrid');
+    const noResults = document.getElementById('noResults');
+    const t = translations[currentLang];
+    
+    const searchLower = filterText.toLowerCase();
+    
+    const filtered = gamesData.filter(g => {
+      if (!filterText) return true;
+      if (g.name.toLowerCase().includes(searchLower)) return true;
+      if (g.tags.some(tag => tag.toLowerCase().includes(searchLower))) return true;
+      if (g.type === 'game' && (searchLower === 'игра' || searchLower === 'game')) return true;
+      if (g.type === 'program' && (searchLower === 'программа' || searchLower === 'program')) return true;
+      return false;
+    });
+    
+    if (filtered.length === 0) {
+      grid.innerHTML = '';
+      noResults.style.display = 'block';
+      document.getElementById('noResultsText').textContent = t.noResults;
+      return;
+    }
+    
+    noResults.style.display = 'none';
+    
+    grid.innerHTML = filtered.map(game => {
+      const cheatsStr = game.cheats.join(', ');
+      const platformIcons = game.platforms.includes('windows') ? '<i class="fab fa-windows"></i>' : '';
+      const buttonText = game.type === 'program' ? t.viewPrograms : t.viewCheats;
+      const tagText = game.type === 'program' ? t.tagProgram : t.tagGame;
+      const tagClass = game.type === 'program' ? 'tag-program' : 'tag-game';
+      
+      return `
+        <div class="game-card" onclick="openGame('${game.id}')">
+          <div class="game-card-header">
+            <div class="game-icon">
+              ${game.icon ? `<img src="${game.icon}" alt="${game.name}">` : '<i class="fab fa-python" style="font-size: 32px; color: #58a6ff;"></i>'}
+            </div>
+            <div class="game-info">
+              <h3>
+                ${game.name}
+                <span class="game-tag ${tagClass}">${tagText}</span>
+              </h3>
+              <div class="game-sub"></div>
+            </div>
+          </div>
+          <div class="cheat-examples"><i class="fas fa-star"></i> ${cheatsStr}</div>
+          <div class="game-meta">
+            <span class="platform-badge">${platformIcons} ${t.platform}</span>
+            <span><i class="far fa-calendar-alt"></i> ${t.added}</span>
+          </div>
+          <button class="view-cheats-btn" onclick="event.stopPropagation(); openGame('${game.id}')">${buttonText} <i class="fas fa-arrow-right"></i></button>
+        </div>
+      `;
+    }).join('');
+  }
+
+  function filterGames() {
+    renderGames(document.getElementById('searchInput').value);
+  }
+
+  function updateUITexts() {
+    const t = translations[currentLang];
+    document.getElementById('searchLabel').textContent = t.searchLabel;
+    document.getElementById('gamesTitle').textContent = t.gamesTitle;
+    document.querySelector('.fiction-badge').innerHTML = `<i class="fas fa-shield-alt"></i> ${t.fiction}`;
+    document.querySelector('.version-badge span').textContent = t.version;
+    document.querySelector('.changelog-content h4').innerHTML = `<i class="fas fa-clipboard-list"></i> ${t.changelog}`;
+    document.getElementById('settingsTitle').textContent = t.settings;
+    document.getElementById('themeLabel').textContent = t.theme;
+    document.getElementById('darkTheme').textContent = t.dark;
+    document.getElementById('lightTheme').textContent = t.light;
+    document.getElementById('languageLabel').textContent = t.language;
+    document.getElementById('additionalLabel').textContent = t.additional;
+    document.getElementById('animationsLabel').textContent = t.animations;
+    document.getElementById('soundsLabel').textContent = t.sounds;
+    document.getElementById('notificationsLabel').textContent = t.notifications;
+    
+    const backTexts = document.querySelectorAll('[id^="backText"]');
+    backTexts.forEach(el => {
+      if (el.id === 'backTextP') el.textContent = t.backProgram;
+      else el.textContent = t.back;
+    });
+    
+    renderGames(document.getElementById('searchInput').value);
+  }
+
+  function setLanguage(lang) {
+    currentLang = lang;
+    document.querySelectorAll('.lang-btn').forEach(btn => {
+      btn.classList.toggle('active', btn.dataset.lang === lang);
+    });
+    updateUITexts();
+  }
+
+  function setTheme(theme) {
+    document.body.classList.toggle('light-theme', theme === 'light');
+    document.querySelectorAll('.theme-btn').forEach(btn => {
+      btn.classList.toggle('active', btn.dataset.theme === theme);
+    });
+  }
+
+  function toggleAnimations() {
+    const tog = document.getElementById('animationsToggle');
+    tog.classList.toggle('active');
+  }
+
+  function toggleSounds() {
+    const tog = document.getElementById('soundsToggle');
+    tog.classList.toggle('active');
+  }
+
+  function toggleNotifications() {
+    const tog = document.getElementById('notificationsToggle');
+    tog.classList.toggle('active');
+  }
+
+  function openSettings() {
+    document.getElementById('settingsModal').classList.add('show');
+  }
+
+  function closeSettings() {
+    document.getElementById('settingsModal').classList.remove('show');
+    devAuthorized = false;
+    document.getElementById('devActions').style.display = 'none';
+    document.getElementById('devPanel').classList.remove('show');
+  }
+
+  function closeSettingsOnOverlay(event) {
+    if (event.target === document.getElementById('settingsModal')) closeSettings();
+  }
+
+  function toggleDevPanel() {
+    const panel = document.getElementById('devPanel');
+    panel.classList.toggle('show');
+  }
+
+  function checkDevPassword() {
+    const pwd = document.getElementById('devPassword').value;
+    if (pwd === DEV_PASSWORD) {
+      devAuthorized = true;
+      document.getElementById('devActions').style.display = 'block';
+      document.getElementById('devPassword').value = '';
+    } else {
+      alert('Неверный пароль!');
+    }
+  }
+
+  function closeSite() {
+    if (devAuthorized) {
+      window.close();
+      // Если не сработает:
+      window.location.href = 'about:blank';
+    }
+  }
+
+  function suspendSite() {
+    if (devAuthorized) {
+      closeSettings();
+      document.getElementById('suspendOverlay').classList.add('active');
+    }
+  }
+
+  function resumeSite() {
+    const pwd = document.getElementById('suspendPassword').value;
+    if (pwd === DEV_PASSWORD) {
+      document.getElementById('suspendOverlay').classList.remove('active');
+      document.getElementById('suspendPassword').value = '';
+    } else {
+      alert('Неверный пароль!');
+    }
+  }
+
+  function reloadSite() {
+    if (devAuthorized) {
+      location.reload();
+    }
+  }
+
+  function renderCheats() {
+    const container = document.getElementById('minecraftCheatsList');
+    if (container) {
+      container.innerHTML = minecraftCheats.map(c => `
+        <div class="cheat-item">
+          <div class="cheat-item-left">
+            <i class="fas fa-download"></i>
+            <div class="cheat-info">
+              <h4>${c.name}</h4>
+              <div class="tg-link"><a href="${c.tg}" target="_blank">Telegram (тыкни)</a></div>
+            </div>
+          </div>
+          <a href="${c.dl}" target="_blank" class="download-btn"><i class="fab fa-google-drive"></i> Google Drive</a>
+        </div>
+      `).join('');
+    }
+  }
+
+  function renderVisuals() {
+    const container = document.getElementById('minecraftVisualsList');
+    if (container) {
+      container.innerHTML = minecraftVisuals.map(v => `
+        <div class="cheat-item">
+          <div class="cheat-item-left">
+            <i class="fas fa-palette"></i>
+            <div class="cheat-info">
+              <h4>${v.name}</h4>
+              <div class="tg-link"><a href="${v.tg}" target="_blank">Telegram (тыкни)</a></div>
+            </div>
+          </div>
+          <a href="${v.dl}" target="_blank" class="download-btn"><i class="fab fa-google-drive"></i> Google Drive</a>
+        </div>
+      `).join('');
+    }
+  }
+
+  renderGames();
+  renderCheats();
+  renderVisuals();
+
+  const gamesView = document.getElementById('gamesView');
+  const views = {
+    minecraft: document.getElementById('minecraftView'),
+    zompiercer: document.getElementById('zompiercerView'),
+    granny: document.getElementById('grannyView'),
+    python: document.getElementById('pythonView')
+  };
+
+  function openGame(game) {
+    gamesView.style.display = 'none';
+    Object.values(views).forEach(v => v.classList.remove('active'));
+    if (views[game]) views[game].classList.add('active');
+  }
+
+  function closeGame() {
+    Object.values(views).forEach(v => v.classList.remove('active'));
+    gamesView.style.display = 'flex';
+  }
+
+  function toggleChangelog() {
+    document.getElementById('changelogContent').classList.toggle('show');
+  }
+
+  document.addEventListener('click', function(e) {
+    if (!e.target.closest('.changelog-dropdown')) {
+      document.getElementById('changelogContent').classList.remove('show');
+    }
+  });
+
+  const mcNavItems = document.querySelectorAll('#minecraftView .nav-item');
+  const mcPages = {
+    cheats: document.getElementById('mc-cheats'),
+    configs: document.getElementById('mc-configs'),
+    texturepacks: document.getElementById('mc-texturepacks'),
+    visuals: document.getElementById('mc-visuals'),
+    servers: document.getElementById('mc-servers'),
+    hosting: document.getElementById('mc-hosting'),
+    mods: document.getElementById('mc-mods'),
+    'about-us': document.getElementById('mc-about')
+  };
+
+  mcNavItems.forEach(item => {
+    item.addEventListener('click', () => {
+      const pageId = item.getAttribute('data-page');
+      Object.values(mcPages).forEach(p => p.classList.remove('active-page'));
+      if (mcPages[pageId]) mcPages[pageId].classList.add('active-page');
+      mcNavItems.forEach(n => n.classList.remove('active'));
+      item.classList.add('active');
+    });
+  });
+</script>
+</body>
+</html>
